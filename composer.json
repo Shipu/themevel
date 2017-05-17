@@ -1,0 +1,29 @@
+{
+    "name": "shipu/themevel",
+    "description": "Theme and asset management for laravel",
+    "keywords": ["theme", "multi", "themevel", "asset", "management", "laravel", "lumen"],
+    "homepage": "https://github.com/nahid/talk",
+    "license": "CC(3.0)",
+    "authors": [
+        {
+            "name": "Shipu Ahamed",
+            "email": "shipuahamed01@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "hassankhan/config": "^0.10.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Shipu\\Themevel\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Shipu\\Themevel\\Tests\\": "tests/"
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}
