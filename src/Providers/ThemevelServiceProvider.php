@@ -2,7 +2,7 @@
 
 namespace Shipu\Themevel\Providers;
 
-use File;
+use File, App;
 use Illuminate\Support\ServiceProvider;
 use Shipu\Themevel\Contracts\ThemeContract;
 use Shipu\Themevel\Managers\Theme;
