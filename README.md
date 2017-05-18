@@ -32,61 +32,6 @@ Now run this command in your terminal to publish this package resources
 ```
 php artisan vendor:publish --provider="Shipu\Themevel\Providers\ThemevelServiceProvider"
 ```
-
-After running this command, all necessary file will be included in your project. This package has two default migrations. So you have to run migrate command like this. (But make sure your database configuration is configured correctly.)
-
-```shell
-php artisan migrate
-```
-
-Okay, now you need to configure your user model for Talk. Go to `config/talk.php` and config it.
-
-```php
-return [
-    'user' => [
-        'model' => 'App\User'
-    ],
-    'broadcast' => [
-        'enable' => false,
-        'app_name' => 'your-app-name',
-        'pusher' => [
-            'app_id'        => '',
-            'app_key'       => '',
-            'app_secret'    => '',
-            'options' => [
-                 'cluster' => 'ap1',
-                 'encrypted' => true
-            ]
-        ]
-    ]
-];
-```
-
-
-### Usage
-
-Its very easy to use. If you want to set authenticate user id globally then you have to set a middleware first. Go to `app/Http/Kernel.php` and set it in `$routeMiddleware` array
-
- ```php
- 'talk'  =>  \Nahid\Talk\Middleware\TalkMiddleware::class,
- ```
- And now you can use it from anywhere with middleware. Suppose you have a Controller and you want to set authenticate user id globally then write this in controller constructor
- 
- ```php
- $this->middleware('talk');
- ```
- 
-But instead of set id globally you can use these procedure from any method in controller.
-
-```php
-Talk::setAuthUserId(auth()->user()->id);
-```
-
-Now you may use any method what you need. But if want pass authentic id instantly, this method may help you.
-
-```php
-Talk::user(auth()->user()->id)->anyMethodHere();
-```
  Please see the API Doc.
 
 ### API List

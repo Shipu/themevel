@@ -92,7 +92,7 @@ class ThemeGeneratorCommand extends Command
         $createdThemePath = $this->themePath . '/' . $this->theme[ 'name' ];
         
         if ( $this->files->isDirectory($createdThemePath) ) {
-            $this->error('Sorry Boss ' . ucfirst($this->theme[ 'name' ]) . ' Theme Folder Already Exist !!!');
+            return $this->error('Sorry Boss ' . ucfirst($this->theme[ 'name' ]) . ' Theme Folder Already Exist !!!');
         }
         
         $this->theme[ 'title' ] = $this->ask('What is theme title?');
@@ -111,6 +111,7 @@ class ThemeGeneratorCommand extends Command
         
         if ( $this->confirm('Any parent theme?') ) {
             $this->theme[ 'parent' ] = $this->ask('What is parent theme name?');
+            $this->theme[ 'parent' ] = strtolower($this->theme[ 'parent' ]);
         }
         
         $this->themeFolders  = $this->config->get('theme.folders');
