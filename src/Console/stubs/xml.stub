@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+    <name>[NAME]</name>
+    <title>[TITLE]</title>
+    <description>[DESCRIPTION]</description>
+    <author>[AUTHOR]</author>
+    <version>[VERSION]</version>
+    <parent>[PARENT]</parent>
+</config>

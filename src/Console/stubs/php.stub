@@ -1,0 +1,12 @@
+<?php
+
+return [
+
+    "name" => "[NAME]",
+    "title" => "[TITLE]",
+    "description" => "[DESCRIPTION]",
+    "author" => "[AUTHOR]",
+    "version" => "[VERSION]",
+    "parent" => "[PARENT]"
+
+];

@@ -10,14 +10,46 @@ use Shipu\Themevel\Exceptions\ThemeNotFoundException;
 
 class Theme implements ThemeContract
 {
+    /**
+     * Theme Root Path
+     *
+     * @var string
+     */
     protected $basePath;
     
+    /**
+     * All Theme Information
+     *
+     * @var collection
+     */
     protected $themes;
     
+    /**
+     * Blade View Finder
+     *
+     * @var \Illuminate\View\ViewFinderInterface
+     */
     protected $finder;
     
+    /**
+     * Application Container
+     *
+     * @var \Illuminate\Container\Container
+     */
     protected $app;
     
+    /**
+     * Translator
+     *
+     * @var \Illuminate\Contracts\Translation\Translator
+     */
+    protected $lang;
+    
+    /**
+     * Current Active Theme
+     *
+     * @var string|collection
+     */
     private $activeTheme = null;
     
     /**
@@ -25,14 +57,17 @@ class Theme implements ThemeContract
      *
      * @param Container $app
      * @param ViewFinderInterface $finder
+     * @param Translator $lang
      */
-    public function __construct( Container $app, ViewFinderInterface $finder )
+    public function __construct( Container $app, ViewFinderInterface $finder, $lang )
     {
         $this->basePath = config('theme.theme_path');
         
         $this->app = $app;
         
         $this->finder = $finder;
+        
+        $this->lang = $lang;
         
         $this->scanThemes();
     }
@@ -140,12 +175,11 @@ class Theme implements ThemeContract
         $themeInfo = $this->getThemeInfo($themeName);
         
         $themePath = ltrim($themeInfo->get('path'), base_path()) . '/';
-        $assetPath = config('theme.generator.assets') . '/';
+        $assetPath = config('theme.folders.assets') . '/';
         $fullPath  = $themePath . $assetPath . $path;
         
         if ( !file_exists($fullPath) && $themeInfo->has('parent') ) {
             $themePath = ltrim($this->getThemeInfo($themeInfo->get('parent'))->get('path'), base_path()) . '/';
-            $assetPath = config('theme.generator.assets') . '/';
             $fullPath  = $themePath . $assetPath . $path;
             
             return $this->app[ 'url' ]->asset($fullPath, $secure);
@@ -172,6 +206,7 @@ class Theme implements ThemeContract
                 $themeConfig                = Config::load($themeConfigPath);
                 $themeConfig[ 'changelog' ] = Config::load($themeChangelogPath)->all();
                 $themeConfig[ 'path' ]      = $themePath;
+                
                 if ( $themeConfig->has('name') ) {
                     $themes[ $themeConfig->get('name') ] = $themeConfig;
                 }
@@ -199,8 +234,12 @@ class Theme implements ThemeContract
         
         $this->loadTheme($themeInfo->get('parent'));
         
+        $viewPath = $themeInfo->get('path') . '/' . config('theme.folders.views');
+        $langPath = $themeInfo->get('path') . '/' . config('theme.folders.lang');
+        
         $this->finder->prependLocation($themeInfo->get('path'));
-        $this->finder->prependLocation($themeInfo->get('path') . '/' . config('theme.generator.views'));
-        $this->finder->prependNamespace($themeInfo->get('name'), $themeInfo->get('path') . '/' . config('theme.generator.views'));
+        $this->finder->prependLocation($viewPath);
+        $this->finder->prependNamespace($themeInfo->get('name'), $viewPath);
+        $this->lang->addNamespace($themeInfo->get('name'), $langPath);
     }
 }
