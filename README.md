@@ -45,10 +45,51 @@ php artisan vendor:publish --provider="Shipu\Themevel\Providers\ThemevelServiceP
 - [current](https://github.com/shipu/themevel#current)
 - [all](https://github.com/shipu/themevel#all)
 - [has](https://github.com/shipu/themevel#has)
+- [lang](https://github.com/shipu/themevel#lang)
 - [getThemeInfo](https://github.com/shipu/themevel#getThemeInfo)
 - [assets](https://github.com/shipu/themevel#assets)
 
+### Route
 
+```
+Route::get('/', function () {
+    Theme::set('your_themen_name');
+    return view('welcome');
+});
+```
+### 'theme' RouteMiddleware
+A helper middleware is included out of the box if you want to define a Theme per route. To use it:
+
+First register it in app\Http\Kernel.php:
+
+```
+protected $routeMiddleware = [
+    // ...
+    'theme' => \Shipu\Themevel\Middleware\RouteMiddleware::class,
+];
+```
+Now you can apply the middleware to a route or route-group. Eg:
+```
+Route::group(['prefix' => 'admin', 'middleware'=>'setTheme:ADMIN_THEME'], function() {
+    // ... Add your routes here 
+    // The ADMIN_THEME will be applied.
+});
+```
+
+### WebMiddleware
+A helper middleware is included out of the box if you want to define a Theme per route. To use it:
+
+First register it in app\Http\Kernel.php:
+
+```
+protected $middlewareGroups = [
+    'web' => [
+        // ...
+        \Shipu\Themevel\Middleware\WebMiddleware::class,
+    ],
+    // ...
+];
+```
 
 ## Support for this project
 Hey dude! Help me out for a couple of :beers:!
