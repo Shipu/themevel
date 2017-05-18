@@ -87,6 +87,6 @@ return [
             'theme' => 'theme.json',
             'changelog' => 'changelog.yml',
         ]
-    ],
+    ]
     
 ];

@@ -190,6 +190,18 @@ class Theme implements ThemeContract
     }
     
     /**
+     * Get lang content from current theme
+     *
+     * @param $fallback
+     *
+     * @return \Illuminate\Contracts\Translation\Translator|string
+     */
+    public function lang($fallback)
+    {
+        return trans($this->current().'::'.$fallback);
+    }
+    
+    /**
      * Scan for all available themes
      *
      * @return void

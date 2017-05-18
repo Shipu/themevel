@@ -19,12 +19,12 @@ if ( !function_exists('lang') ) {
     /**
      * Get lang content from current theme
      *
-     * @param  string $fallback
+     * @param $fallback
      *
-     * @return string
+     * @return \Illuminate\Contracts\Translation\Translator|string
      */
     function lang($fallback)
     {
-        return trans(Theme::current().'::'.$fallback);
+        return Theme::lang($fallback);
     }
 }

@@ -1,7 +1,10 @@
 
 ### Features
 
-* Theme
+* Add multiple theme support
+* Child theme support
+* Parent Asset finding support
+* Translator support
 
 ### Installation
 
@@ -37,32 +40,13 @@ php artisan vendor:publish --provider="Shipu\Themevel\Providers\ThemevelServiceP
 ### API List
 
 
-- [setAuthUserId](https://github.com/nahid/talk#setauthuserid)
-- [user](https://github.com/nahid/talk#user)
-- [isConversationExists](https://github.com/nahid/talk#isconversationexists)
-- [isAuthenticUser](https://github.com/nahid/talk#isauthenticuser)
-- [sendMessage](https://github.com/nahid/talk#sendmessage)
-- [sendMessageByUserId](https://github.com/nahid/talk#sendmessagebyuserid)
-- [getInbox](https://github.com/nahid/talk#getinbox)
-- [getInboxAll](https://github.com/nahid/talk#getinboxAll)
-- [threads](https://github.com/nahid/talk#threads)
-- [threadsAll](https://github.com/nahid/talk#threadsall)
-- [getConversationsById](https://github.com/nahid/talk#getconversationbyid)
-- [getConversationsAllById](https://github.com/nahid/talk#getconversationallbyid)
-- [getConversationsByUserId](https://github.com/nahid/talk#getconversationbyuserid)
-- [getConversationsAllByUserId](https://github.com/nahid/talk#getconversationallbyuserid)
-- [getMessages](https://github.com/nahid/talk#getmessages)
-- [getMessagesByUserId](https://github.com/nahid/talk#getmessagesbyuserid)
-- [getMessagesAll](https://github.com/nahid/talk#getmessagesall)
-- [getMessagesAllByUserId](https://github.com/nahid/talk#getmessagesallbyuserid)
-- [readMessage](https://github.com/nahid/talk#readmessage)
-- [makeSeen](https://github.com/nahid/talk#makeseen)
-- [getReceiverInfo](https://github.com/nahid/talk#getreceiverinfo)
-- [deleteMessage](https://github.com/nahid/talk#deletemessage)
-- [deleteForever](https://github.com/nahid/talk#deleteforever)
-- [deleteConversations](https://github.com/nahid/talk#deleteconversations)
-
-
+- [set](https://github.com/shipu/themevel#set)
+- [get](https://github.com/shipu/themevel#get)
+- [current](https://github.com/shipu/themevel#current)
+- [all](https://github.com/shipu/themevel#all)
+- [has](https://github.com/shipu/themevel#has)
+- [getThemeInfo](https://github.com/shipu/themevel#getThemeInfo)
+- [assets](https://github.com/shipu/themevel#assets)
 
 
 
