@@ -13,14 +13,14 @@ class ThemeListCommand extends Command
      * @var string
      */
     protected $signature = 'theme:list';
-    
+
     /**
      * The console command description.
      *
      * @var string
      */
     protected $description = 'List all available themes';
-    
+
     /**
      * Execute the console command.
      *
@@ -28,18 +28,17 @@ class ThemeListCommand extends Command
      */
     public function handle()
     {
-        $themes  = $this->laravel[ ThemeContract::class ]->all();
-        $headers = [ 'Name', 'Author', 'Version', 'Parent' ];
-        $output  = [];
-        foreach ( $themes as $theme ) {
+        $themes = $this->laravel[ThemeContract::class]->all();
+        $headers = ['Name', 'Author', 'Version', 'Parent'];
+        $output = [];
+        foreach ($themes as $theme) {
             $output[] = [
                 'Name'    => $theme->get('name'),
                 'Author'  => $theme->get('author'),
                 'version' => $theme->get('version'),
-                'parent'  => $theme->get('parent')
+                'parent'  => $theme->get('parent'),
             ];
         }
         $this->table($headers, $output);
     }
-    
 }
