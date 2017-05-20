@@ -2,7 +2,8 @@
 
 namespace Shipu\Themevel\Providers;
 
-use File, App;
+use App;
+use File;
 use Illuminate\Support\ServiceProvider;
 use Shipu\Themevel\Contracts\ThemeContract;
 use Shipu\Themevel\Managers\Theme;
@@ -16,11 +17,11 @@ class ThemevelServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        if ( !File::exists(public_path('Themes')) && config('theme.symlink') && File::exists(config('theme.theme_path')) ) {
+        if (!File::exists(public_path('Themes')) && config('theme.symlink') && File::exists(config('theme.theme_path'))) {
             App::make('files')->link(config('theme.theme_path'), public_path('Themes'));
         }
     }
-    
+
     /**
      * Register the application services.
      *
@@ -32,9 +33,9 @@ class ThemevelServiceProvider extends ServiceProvider
         $this->registerTheme();
         $this->registerHelper();
         $this->consoleCommand();
-        $this->loadViewsFrom(__DIR__ . '/../Views', 'themevel');
+        $this->loadViewsFrom(__DIR__.'/../Views', 'themevel');
     }
-    
+
     /**
      * Register theme required components .
      *
@@ -42,43 +43,43 @@ class ThemevelServiceProvider extends ServiceProvider
      */
     public function registerTheme()
     {
-        $this->app->singleton(ThemeContract::class, function ( $app ) {
-            $theme = new Theme($app, $this->app[ 'view' ]->getFinder(), $this->app['config'], $this->app[ 'translator' ]);
-            
+        $this->app->singleton(ThemeContract::class, function ($app) {
+            $theme = new Theme($app, $this->app['view']->getFinder(), $this->app['config'], $this->app['translator']);
+
             return $theme;
         });
     }
-    
+
     /**
-     * Register All Helpers
+     * Register All Helpers.
      *
      * @return void
      */
     public function registerHelper()
     {
-        foreach ( glob(__DIR__ . '/../Helpers/*.php') as $filename ) {
-            require_once( $filename );
+        foreach (glob(__DIR__.'/../Helpers/*.php') as $filename) {
+            require_once $filename;
         }
     }
-    
+
     /**
-     * Publish config file
+     * Publish config file.
      *
      * @return void
      */
     public function publishConfig()
     {
-        $configPath = realpath(__DIR__ . '/../../config/theme.php');
-        
+        $configPath = realpath(__DIR__.'/../../config/theme.php');
+
         $this->publishes([
-            $configPath => config_path('theme.php')
+            $configPath => config_path('theme.php'),
         ]);
-        
+
         $this->mergeConfigFrom($configPath, 'themevel');
     }
-    
+
     /**
-     * Add Commands
+     * Add Commands.
      *
      * @return void
      */
@@ -90,7 +91,7 @@ class ThemevelServiceProvider extends ServiceProvider
             'theme.create'
         );
     }
-    
+
     /**
      * Register generator of theme.
      *
@@ -98,11 +99,11 @@ class ThemevelServiceProvider extends ServiceProvider
      */
     public function registerThemeGenerator()
     {
-        $this->app->singleton('theme.create', function ( $app ) {
-            return new \Shipu\Themevel\Console\ThemeGeneratorCommand($app[ 'config' ], $app[ 'files' ]);
+        $this->app->singleton('theme.create', function ($app) {
+            return new \Shipu\Themevel\Console\ThemeGeneratorCommand($app['config'], $app['files']);
         });
     }
-    
+
     /**
      * Get the services provided by the provider.
      *

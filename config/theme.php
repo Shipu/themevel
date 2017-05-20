@@ -1,7 +1,7 @@
 <?php
 
 return [
-    
+
     /*
     |--------------------------------------------------------------------------
     | Default active Theme
@@ -12,7 +12,7 @@ return [
     |
     */
     'active' => '',
-    
+
     /*
     |--------------------------------------------------------------------------
     | Themes path
@@ -23,7 +23,7 @@ return [
     |
     */
     'theme_path' => base_path('Themes'),
-    
+
     /*
     |--------------------------------------------------------------------------
     | Symbolic link
@@ -35,7 +35,7 @@ return [
     |
     */
     'symlink' => true,
-    
+
     /*
     |--------------------------------------------------------------------------
     | Theme config name and change log file name
@@ -46,10 +46,10 @@ return [
     |
     */
     'config' => [
-        'name' => 'theme.json',
-        'changelog' => 'changelog.yml'
+        'name'      => 'theme.json',
+        'changelog' => 'changelog.yml',
     ],
-    
+
     /*
     |--------------------------------------------------------------------------
     | Themes folder structure
@@ -59,18 +59,18 @@ return [
     |
     */
     'folders' => [
-        'assets' => 'assets',
-        'views' => 'views',
-        'lang' => 'lang',
+        'assets'  => 'assets',
+        'views'   => 'views',
+        'lang'    => 'lang',
         'lang/en' => 'lang/en',
-    
+
         'css' => 'assets/css',
-        'js' => 'assets/js',
+        'js'  => 'assets/js',
         'img' => 'assets/img',
-    
+
         'layouts'=> 'views/layouts',
     ],
-    
+
     /*
     |--------------------------------------------------------------------------
     | Theme Stubs
@@ -80,13 +80,13 @@ return [
     |
     */
     'stubs' => [
-        'path' => base_path('vendor/shipu/themevel/src/Console/stubs'),
+        'path'  => base_path('vendor/shipu/themevel/src/Console/stubs'),
         'files' => [
-            'css' => 'assets/css/app.css',
+            'css'    => 'assets/css/app.css',
             'layout' => 'views/layouts/master.blade.php',
-            'page' => 'views/welcome.blade.php',
-            'lang' => 'lang/en/content.php'
-        ]
-    ]
-    
+            'page'   => 'views/welcome.blade.php',
+            'lang'   => 'lang/en/content.php',
+        ],
+    ],
+
 ];
