@@ -2,7 +2,9 @@
 
 namespace Shipu\Themevel\Managers;
 
+use Illuminate\Config\Repository;
 use Illuminate\Container\Container;
+use Illuminate\Contracts\Translation\Translator;
 use Illuminate\View\ViewFinderInterface;
 use Noodlehaus\Config;
 use Shipu\Themevel\Contracts\ThemeContract;
@@ -46,6 +48,13 @@ class Theme implements ThemeContract
     protected $lang;
     
     /**
+     * Config
+     *
+     * @var Repository
+     */
+    protected $config;
+    
+    /**
      * Current Active Theme
      *
      * @var string|collection
@@ -57,11 +66,12 @@ class Theme implements ThemeContract
      *
      * @param Container $app
      * @param ViewFinderInterface $finder
+     * @param Repository $config
      * @param Translator $lang
      */
-    public function __construct( Container $app, ViewFinderInterface $finder, $lang )
+    public function __construct( Container $app, ViewFinderInterface $finder, Repository $config, Translator $lang )
     {
-        $this->basePath = config('theme.theme_path');
+        $this->config = $config;
         
         $this->app = $app;
         
@@ -69,13 +79,17 @@ class Theme implements ThemeContract
         
         $this->lang = $lang;
         
+        $this->basePath = $this->config[ 'theme.theme_path' ];
+        
         $this->scanThemes();
     }
     
     /**
      * Set current theme
      *
-     * @param $theme
+     * @param string $theme
+     *
+     * @return void
      */
     public function set( $theme )
     {
@@ -90,7 +104,7 @@ class Theme implements ThemeContract
     /**
      * Check if theme exists
      *
-     * @param $theme
+     * @param string $theme
      *
      * @return bool
      */
@@ -102,7 +116,7 @@ class Theme implements ThemeContract
     /**
      * Get particular theme all information
      *
-     * @param $themeName
+     * @param string $themeName
      *
      * @return null|ThemeInfo
      */
@@ -114,9 +128,10 @@ class Theme implements ThemeContract
     /**
      * Returns current theme or particular theme information.
      *
-     * @param string Theme namespace
+     * @param string $theme
+     * @param bool $collection
      *
-     * @return null|array|ThemeInfo
+     * @return array|null|ThemeInfo
      */
     public function get( $theme = null, $collection = false )
     {
@@ -152,8 +167,8 @@ class Theme implements ThemeContract
     /**
      * Find asset file for theme asset
      *
-     * @param $path
-     * @param null $secure
+     * @param string $path
+     * @param null|bool $secure
      *
      * @return string
      */
@@ -175,7 +190,7 @@ class Theme implements ThemeContract
         $themeInfo = $this->getThemeInfo($themeName);
         
         $themePath = ltrim($themeInfo->get('path'), base_path()) . '/';
-        $assetPath = config('theme.folders.assets') . '/';
+        $assetPath = $this->config[ 'theme.folders.assets' ] . '/';
         $fullPath  = $themePath . $assetPath . $path;
         
         if ( !file_exists($fullPath) && $themeInfo->has('parent') ) {
@@ -192,13 +207,28 @@ class Theme implements ThemeContract
     /**
      * Get lang content from current theme
      *
-     * @param $fallback
+     * @param string $fallback
      *
      * @return \Illuminate\Contracts\Translation\Translator|string
      */
-    public function lang($fallback)
+    public function lang( $fallback )
     {
-        return trans($this->current().'::'.$fallback);
+        $splitLang = explode('::', $fallback);
+        
+        if ( count($splitLang) > 1 ) {
+            if ( is_null($splitLang[ 0 ]) ) {
+                $fallback = $splitLang[ 1 ];
+            } else {
+                $fallback = $splitLang[ 0 ] . '::' . $splitLang[ 1 ];
+            }
+        } else {
+            $fallback = $this->current() . '::' . $splitLang[ 0 ];
+            if ( !$this->lang->has($fallback) ) {
+                $fallback = $this->getThemeInfo($this->current())->get('parent') . '::' . $splitLang[ 0 ];;
+            }
+        }
+        
+        return trans($fallback);
     }
     
     /**
@@ -211,8 +241,8 @@ class Theme implements ThemeContract
         $themeDirectories = glob($this->basePath . '/*', GLOB_ONLYDIR);
         $themes           = [];
         foreach ( $themeDirectories as $themePath ) {
-            $themeConfigPath    = $themePath . '/' . config('theme.config.name');
-            $themeChangelogPath = $themePath . '/' . config('theme.config.changelog');
+            $themeConfigPath    = $themePath . '/' . $this->config[ 'theme.config.name' ];
+            $themeChangelogPath = $themePath . '/' . $this->config[ 'theme.config.changelog' ];
             
             if ( file_exists($themeConfigPath) ) {
                 $themeConfig                = Config::load($themeConfigPath);
@@ -230,7 +260,9 @@ class Theme implements ThemeContract
     /**
      * Map view map for particular theme
      *
-     * @param $theme
+     * @param string $theme
+     *
+     * @return void
      */
     private function loadTheme( $theme )
     {
@@ -246,8 +278,8 @@ class Theme implements ThemeContract
         
         $this->loadTheme($themeInfo->get('parent'));
         
-        $viewPath = $themeInfo->get('path') . '/' . config('theme.folders.views');
-        $langPath = $themeInfo->get('path') . '/' . config('theme.folders.lang');
+        $viewPath = $themeInfo->get('path') . '/' . $this->config[ 'theme.folders.views' ];
+        $langPath = $themeInfo->get('path') . '/' . $this->config[ 'theme.folders.lang' ];
         
         $this->finder->prependLocation($themeInfo->get('path'));
         $this->finder->prependLocation($viewPath);

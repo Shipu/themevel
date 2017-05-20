@@ -43,7 +43,7 @@ class ThemevelServiceProvider extends ServiceProvider
     public function registerTheme()
     {
         $this->app->singleton(ThemeContract::class, function ( $app ) {
-            $theme = new Theme($app, $this->app[ 'view' ]->getFinder(), $this->app[ 'translator' ]);
+            $theme = new Theme($app, $this->app[ 'view' ]->getFinder(), $this->app['config'], $this->app[ 'translator' ]);
             
             return $theme;
         });

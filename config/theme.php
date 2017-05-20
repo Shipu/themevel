@@ -62,6 +62,7 @@ return [
         'assets' => 'assets',
         'views' => 'views',
         'lang' => 'lang',
+        'lang/en' => 'lang/en',
     
         'css' => 'assets/css',
         'js' => 'assets/js',
@@ -84,8 +85,7 @@ return [
             'css' => 'assets/css/app.css',
             'layout' => 'views/layouts/master.blade.php',
             'page' => 'views/welcome.blade.php',
-            'theme' => 'theme.json',
-            'changelog' => 'changelog.yml',
+            'lang' => 'lang/en/content.php'
         ]
     ]
     

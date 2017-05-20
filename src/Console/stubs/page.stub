@@ -28,7 +28,7 @@
 
             <div class="content">
                 <div class="title m-b-md">
-                    Welcome to [TITLE]
+                    Welcome to {{ lang('content.title') }}
                 </div>
 
                 <div class="links">

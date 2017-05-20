@@ -95,6 +95,34 @@ class ThemeGeneratorCommand extends Command
             return $this->error('Sorry Boss ' . ucfirst($this->theme[ 'name' ]) . ' Theme Folder Already Exist !!!');
         }
         
+        $this->consoleAsk();
+        
+        $this->themeFolders  = $this->config->get('theme.folders');
+        $this->themeStubPath = $this->config->get('theme.stubs.path');
+        
+        $themeStubFiles                = $this->config->get('theme.stubs.files');
+        $themeStubFiles[ 'theme' ]     = $this->config->get('theme.config.name');
+        $themeStubFiles[ 'changelog' ] = $this->config->get('theme.config.changelog');
+        
+        $this->makeDir($createdThemePath);
+        
+        foreach ( $this->themeFolders as $key => $folder ) {
+            $this->makeDir($createdThemePath . '/' . $folder);
+        }
+        
+        $this->createStubs($themeStubFiles, $createdThemePath);
+        
+        $this->info(ucfirst($this->theme[ 'name' ]) . ' Theme Folder Successfully Generated !!!');
+        
+    }
+    
+    /**
+     * Console command ask questions
+     *
+     * @return void
+     */
+    public function consoleAsk()
+    {
         $this->theme[ 'title' ] = $this->ask('What is theme title?');
         
         $this->theme[ 'description' ] = $this->ask('What is theme description?', false);
@@ -113,17 +141,16 @@ class ThemeGeneratorCommand extends Command
             $this->theme[ 'parent' ] = $this->ask('What is parent theme name?');
             $this->theme[ 'parent' ] = strtolower($this->theme[ 'parent' ]);
         }
-        
-        $this->themeFolders  = $this->config->get('theme.folders');
-        $this->themeStubPath = $this->config->get('theme.stubs.path');
-        $themeStubFiles      = $this->config->get('theme.stubs.files');
-        
-        $this->makeDir($createdThemePath);
-        
-        foreach ( $this->themeFolders as $key => $folder ) {
-            $this->makeDir($createdThemePath . '/' . $folder);
-        }
-        
+    }
+    
+    /**
+     * Create theme stubs
+     *
+     * @param array $themeStubFiles
+     * @param string $createdThemePath
+     */
+    public function createStubs( $themeStubFiles, $createdThemePath )
+    {
         foreach ( $themeStubFiles as $filename => $storePath ) {
             if ( $filename == 'changelog' ) {
                 $filename = 'changelog' . pathinfo($storePath, PATHINFO_EXTENSION);
@@ -136,9 +163,6 @@ class ThemeGeneratorCommand extends Command
             $themeStubFile = $this->themeStubPath . '/' . $filename . '.stub';
             $this->makeFile($themeStubFile, $createdThemePath . '/' . $storePath);
         }
-        
-        $this->info(ucfirst($this->theme[ 'name' ]) . ' Theme Folder Successfully Generated !!!');
-        
     }
     
     /**
