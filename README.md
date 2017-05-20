@@ -1,6 +1,6 @@
 # Laravel-Themevel
 
-Themevel is a Laravel 5 theme and asset management. You can easily integrate this package with any Laravel based project.
+Themevel is a Laravel 5 theme and asset management package. You can easily integrate this package with any Laravel based project.
 
 ### Features
 
@@ -13,7 +13,7 @@ Themevel is a Laravel 5 theme and asset management. You can easily integrate thi
 * Multiple theme changelog extension
 * Artisan console commands
 
-### Installation
+## Installation
 
 Themevel is a Laravel package so you can install it via composer. Run this command in your terminal from your project directory.
 
@@ -23,7 +23,7 @@ composer require shipu/themevel
 
 Wait for a while, Composer will automatically install Themevel in your project.
 
-### Configuration
+## Configuration
 
 When the download is complete, you have to call this package service in `config/app.php` config file. To do that, add this line in `app.php` in `providers` section
 
@@ -43,7 +43,7 @@ Now run this command in your terminal to publish this package resources
 php artisan vendor:publish --provider="Shipu\Themevel\Providers\ThemevelServiceProvider"
 ```
 
-### Artisan Command
+## Artisan Command
 Run this command in your terminal from your project directory.
 
 Create a theme directory
@@ -82,7 +82,7 @@ php artisan theme:list
 +----------+--------------+---------+----------+
 ```
 
-### Example folder structure:
+## Example folder structure:
 ```
 - app/
 - ..
@@ -130,7 +130,7 @@ Then run `theme:create` command which describe above.
 
 Now Please see the API List Doc.
 
-### API List
+## API List
 - [set](https://github.com/shipu/themevel#set)
 - [get](https://github.com/shipu/themevel#get)
 - [current](https://github.com/shipu/themevel#current)
@@ -219,9 +219,11 @@ Theme::assets('your_asset_path'); // return string
 ```
 It's Generate `BASE_URL/theme_roots/your_active_theme_name/assets/your_asset_path`
 
-If your_asset_path not exist then it's find to active theme immediate parent assets folder. Look Like `BASE_URL/theme_roots/your_active_theme_parent_name/assets/your_asset_path`
+If `your_asset_path` not exist then it's find to active theme immediate parent assets folder. 
 
-For Using Helper
+Look Like `BASE_URL/theme_roots/your_active_theme_parent_name/assets/your_asset_path`
+
+For using helper you can also get assets path:
 ```php
 themes('your_asset_path'); // return string
 ```
@@ -233,7 +235,7 @@ Theme::assets('your_theme_name:your_asset_path'); // return string
 themes('your_theme_name:your_asset_path'); // return string
 ```
 
-**Suppose you want to bind `app.css` in your blade. Then below code can be applicable**
+**Suppose you want to bind `app.css` in your blade. Then below code can be applicable:**
 ```php
 <link rel="stylesheet" href="{{ themes('app.css') }}">
 ```
@@ -256,14 +258,14 @@ echo Theme::lang('your_theme_name::your_asset_path'); // return string
 echo lang('your_theme_name::your_asset_path'); // return string
 ```
 
-### How to use in Route
+## How to use in Route
 ```
 Route::get('/', function () {
     Theme::set('your_themen_name');
     return view('welcome');
 });
 ```
-This will firstly check if there is a welcome.blade.php in current theme directory. If none is found then it checks parent theme, and finally falls back to default laravel views location.
+_**This will firstly check if there is a welcome.blade.php in current theme directory. If none is found then it checks parent theme, and finally falls back to default laravel views location.**_
 
 If You you want to specific theme view:
 ```
@@ -273,7 +275,7 @@ Route::get('/', function () {
 });
 ```
 
-### Set theme using route middleware
+## Set theme using route middleware
 A helper middleware is included out of the box if you want to define a Theme per route. To use it:
 
 First register it in app\Http\Kernel.php:
@@ -292,7 +294,7 @@ Route::group(['prefix' => 'admin', 'middleware'=>'theme:Your_theme_name'], funct
 });
 ```
 
-### Set theme using web middleware
+## Set theme using web middleware
 A helper middleware is included out of the box if you want to define a Theme per route. To use it:
 
 First register it in app\Http\Kernel.php:
