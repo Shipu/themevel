@@ -232,9 +232,3 @@ Theme set from `config/theme.php` .
 Hey dude! Help me out for a couple of :beers:!
 
 [![Beerpay](https://beerpay.io/Shipu/themevel/badge.svg?style=beer)](https://beerpay.io/Shipu/themevel) [![Beerpay](https://beerpay.io/Shipu/themevel/make-wish.svg?style=flat-square)](https://beerpay.io/Shipu/themevel?focus=wish) 
-
-
-## Support on Beerpay
-Hey dude! Help me out for a couple of :beers:!
-
-[![Beerpay](https://beerpay.io/Shipu/themevel/badge.svg?style=beer-square)](https://beerpay.io/Shipu/themevel)  [![Beerpay](https://beerpay.io/Shipu/themevel/make-wish.svg?style=flat-square)](https://beerpay.io/Shipu/themevel?focus=wish)
