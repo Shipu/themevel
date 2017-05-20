@@ -4,10 +4,10 @@ Themevel is a Laravel 5 theme and asset management. You can easily integrate thi
 
 ### Features
 
-* Add multiple theme support
 * Custom theme location
-* Child theme support
-* Theme asset or parent asset finding support
+* Parent theme support
+* Unlimited Parent view finding
+* Asset Finding
 * Theme translator support
 * Multiple theme config extension
 * Multiple theme changelog extension
