@@ -1,20 +1,26 @@
+# Laravel-Themevel
+
+Themevel is a Laravel 5 theme and asset management. You can easily integrate this package with any Laravel based project.
 
 ### Features
 
 * Add multiple theme support
 * Child theme support
-* Parent Asset finding support
-* Translator support
+* Theme asset or parent asset finding support
+* Theme translator support
+* Multiple theme config extension
+* Multiple theme changelog extension
+* Simple command to create theme
 
 ### Installation
 
-Themevel is a Larravel package so you can install it via composer. Run this command in your terminal from your project directory.
+Themevel is a Laravel package so you can install it via composer. Run this command in your terminal from your project directory.
 
-```
+```ssh
 composer require shipu/themevel
 ```
 
-Wait for a while, Composer will automatically install Talk in your project.
+Wait for a while, Composer will automatically install Themevel in your project.
 
 ### Configuration
 
@@ -35,29 +41,159 @@ Now run this command in your terminal to publish this package resources
 ```
 php artisan vendor:publish --provider="Shipu\Themevel\Providers\ThemevelServiceProvider"
 ```
- Please see the API Doc.
+
+### Create theme
+Run this command in your terminal from your project directory.
+
+```ssh
+php artisan theme:create your_theme_name
+```
+
+Now Please see the API List Doc.
 
 ### API List
-
-
 - [set](https://github.com/shipu/themevel#set)
 - [get](https://github.com/shipu/themevel#get)
 - [current](https://github.com/shipu/themevel#current)
 - [all](https://github.com/shipu/themevel#all)
 - [has](https://github.com/shipu/themevel#has)
-- [lang](https://github.com/shipu/themevel#lang)
 - [getThemeInfo](https://github.com/shipu/themevel#getThemeInfo)
 - [assets](https://github.com/shipu/themevel#assets)
+- [lang](https://github.com/shipu/themevel#lang)
 
-### Route
+### set
 
+For switching current theme you can use `set` method.
+
+```php
+Theme::set('theme-name');
+```
+
+### get
+
+For getting current theme details you can use `get` method. 
+
+```php
+Theme::get(); // return Array
+```
+you can also get particular theme details.
+```php
+Theme::get('theme-name'); // return Array
+```
+
+```php
+Theme::get('theme-name', true); // return Collection
+```
+
+### current
+
+Retrieve current theme's name
+
+```php
+Theme::current(); // return string
+```
+
+### all
+
+Retrieve All Theme Information
+
+```php
+Theme::all(); // return Array
+```
+
+### has
+
+For getting theme exist or not
+
+```php
+Theme::has(); // return bool
+```
+
+### getThemeInfo
+
+For getting theme exist or not
+
+```php
+$themeInfo = Theme::getThemeInfo('theme-name'); // return Collection
+
+$themeName = $themeInfo->get('name');
+// or
+$themeName = $themeInfo['name'];
+```
+Also fallback support
+```php
+$themeInfo = Theme::getThemeInfo('theme-name'); // return Collection
+
+$themeName = $themeInfo->get('changelog.versions');
+// or
+$themeName = $themeInfo['changelog.versions'];
+// or you can also call like as multi dimention
+$themeName = $themeInfo['changelog']['versions'];
+```
+### assets
+
+For binding theme asset you can use `assets` method
+
+```php
+Theme::assets('your_asset_path'); // return string
+```
+It's Generate `BASE_URL/theme_roots/your_active_theme_name/assets/your_asset_path`
+
+If your_asset_path not exist then it's find to active theme immediate parent assets folder. Look Like `BASE_URL/theme_roots/your_active_theme_parent_name/assets/your_asset_path`
+
+For Using Helper
+```php
+themes('your_asset_path'); // return string
+```
+
+If You you want to bind specific theme assets:
+```php
+Theme::assets('your_theme_name:your_asset_path'); // return string
+//or 
+themes('your_theme_name:your_asset_path'); // return string
+```
+
+**Suppose you want to bind `app.css` in your blade. Then below code can be applicable**
+```php
+<link rel="stylesheet" href="{{ themes('app.css') }}">
+```
+Specific theme assets:
+```php
+<link rel="stylesheet" href="{{ themes('your_theme_name:app.css') }}">
+```
+### lang
+
+The `lang` method translates the given language line using your current **theme** [localization files](https://laravel.com/docs/5.4/localization):
+```php
+echo Theme::lang('content.title'); // return string
+// or
+echo lang('content.title'); // return string
+```
+If You you want to bind specific theme assets:
+```php
+echo Theme::lang('your_theme_name::your_asset_path'); // return string
+//or 
+echo lang('your_theme_name::your_asset_path'); // return string
+```
+
+### How to use in Route
 ```
 Route::get('/', function () {
     Theme::set('your_themen_name');
     return view('welcome');
 });
 ```
-### 'theme' RouteMiddleware
+This will firstly check if there is a welcome.blade.php in current theme directory. If none is found then it checks parent theme, and finally falls back to default laravel views location.
+
+If You you want to specific theme view:
+```
+Route::get('/', function () {
+    Theme::set('your_theme_name');
+    return view('your_theme_name::welcome');
+});
+```
+
+### Set theme using route middleware
 A helper middleware is included out of the box if you want to define a Theme per route. To use it:
 
 First register it in app\Http\Kernel.php:
@@ -70,13 +206,13 @@ protected $routeMiddleware = [
 ```
 Now you can apply the middleware to a route or route-group. Eg:
 ```
-Route::group(['prefix' => 'admin', 'middleware'=>'setTheme:ADMIN_THEME'], function() {
+Route::group(['prefix' => 'admin', 'middleware'=>'theme:Your_theme_name'], function() {
     // ... Add your routes here 
-    // The ADMIN_THEME will be applied.
+    // The Your_theme_name will be applied.
 });
 ```
 
-### WebMiddleware
+### Set theme using web middleware
 A helper middleware is included out of the box if you want to define a Theme per route. To use it:
 
 First register it in app\Http\Kernel.php:
@@ -90,9 +226,10 @@ protected $middlewareGroups = [
     // ...
 ];
 ```
+Theme set from `config/theme.php` .
 
 ## Support for this project
 Hey dude! Help me out for a couple of :beers:!
 
-[![Beerpay](https://beerpay.io/nahid/talk/badge.svg?style=beer-square)](https://beerpay.io/nahid/talk)  [![Beerpay](https://beerpay.io/nahid/talk/make-wish.svg?style=flat-square)](https://beerpay.io/nahid/talk?focus=wish)
+[![Beerpay](https://beerpay.io/Shipu/themevel/badge.svg?style=beer)](https://beerpay.io/Shipu/themevel) [![Beerpay](https://beerpay.io/Shipu/themevel/make-wish.svg?style=flat-square)](https://beerpay.io/Shipu/themevel?focus=wish) 
 
