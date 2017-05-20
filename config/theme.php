@@ -1,7 +1,7 @@
 <?php
 
 return [
-    
+
     /*
     |--------------------------------------------------------------------------
     | Default active Theme
@@ -12,7 +12,7 @@ return [
     |
     */
     'active'     => '',
-    
+
     /*
     |--------------------------------------------------------------------------
     | Themes path
@@ -23,7 +23,7 @@ return [
     |
     */
     'theme_path' => base_path('Themes'),
-    
+
     /*
     |--------------------------------------------------------------------------
     | Symbolic link
@@ -35,7 +35,7 @@ return [
     |
     */
     'symlink'    => true,
-    
+
     /*
     |--------------------------------------------------------------------------
     | Theme config name and change log file name
@@ -47,9 +47,9 @@ return [
     */
     'config'     => [
         'name'      => 'theme.json',
-        'changelog' => 'changelog.yml'
+        'changelog' => 'changelog.yml',
     ],
-    
+
     /*
     |--------------------------------------------------------------------------
     | Themes folder structure
@@ -63,14 +63,14 @@ return [
         'views'   => 'views',
         'lang'    => 'lang',
         'lang/en' => 'lang/en',
-        
+
         'css' => 'assets/css',
         'js'  => 'assets/js',
         'img' => 'assets/img',
-        
+
         'layouts' => 'views/layouts',
     ],
-    
+
     /*
     |--------------------------------------------------------------------------
     | Theme Stubs
@@ -85,8 +85,8 @@ return [
             'css'    => 'assets/css/app.css',
             'layout' => 'views/layouts/master.blade.php',
             'page'   => 'views/welcome.blade.php',
-            'lang'   => 'lang/en/content.php'
-        ]
-    ]
+            'lang'   => 'lang/en/content.php',
+        ],
+    ],
 
 ];
