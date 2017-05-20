@@ -11,7 +11,7 @@ return [
     | 'active' => 'themeOne',
     |
     */
-    'active' => '',
+    'active'     => '',
     
     /*
     |--------------------------------------------------------------------------
@@ -34,7 +34,7 @@ return [
     | then symlink can be false or true as your wish.
     |
     */
-    'symlink' => true,
+    'symlink'    => true,
     
     /*
     |--------------------------------------------------------------------------
@@ -45,8 +45,8 @@ return [
     | for version control status
     |
     */
-    'config' => [
-        'name' => 'theme.json',
+    'config'     => [
+        'name'      => 'theme.json',
         'changelog' => 'changelog.yml'
     ],
     
@@ -58,17 +58,17 @@ return [
     | Here you may update theme folder structure.
     |
     */
-    'folders' => [
-        'assets' => 'assets',
-        'views' => 'views',
-        'lang' => 'lang',
+    'folders'    => [
+        'assets'  => 'assets',
+        'views'   => 'views',
+        'lang'    => 'lang',
         'lang/en' => 'lang/en',
-    
+        
         'css' => 'assets/css',
-        'js' => 'assets/js',
+        'js'  => 'assets/js',
         'img' => 'assets/img',
-    
-        'layouts'=> 'views/layouts',
+        
+        'layouts' => 'views/layouts',
     ],
     
     /*
@@ -79,14 +79,14 @@ return [
     | Default theme stubs.
     |
     */
-    'stubs' => [
-        'path' => base_path('vendor/shipu/themevel/src/Console/stubs'),
+    'stubs'      => [
+        'path'  => base_path('vendor/shipu/themevel/src/Console/stubs'),
         'files' => [
-            'css' => 'assets/css/app.css',
+            'css'    => 'assets/css/app.css',
             'layout' => 'views/layouts/master.blade.php',
-            'page' => 'views/welcome.blade.php',
-            'lang' => 'lang/en/content.php'
+            'page'   => 'views/welcome.blade.php',
+            'lang'   => 'lang/en/content.php'
         ]
     ]
-    
+
 ];
