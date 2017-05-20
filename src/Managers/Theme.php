@@ -286,4 +286,5 @@ class Theme implements ThemeContract
         $this->finder->prependNamespace($themeInfo->get('name'), $viewPath);
         $this->lang->addNamespace($themeInfo->get('name'), $langPath);
     }
+    
 }
