@@ -1,10 +1,10 @@
 <?php
     
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
     
-class ThemeTest extends PHPUnit_Framework_TestCase
+class ThemeTest extends TestCase
 {
-    public function testUsingTheme()
+    public function testTheme()
     {
         return $this->assertTrue(true);
     }
