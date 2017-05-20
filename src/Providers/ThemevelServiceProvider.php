@@ -5,6 +5,7 @@ namespace Shipu\Themevel\Providers;
 use App;
 use File;
 use Illuminate\Support\ServiceProvider;
+use Shipu\Themevel\Console\ThemeListCommand;
 use Shipu\Themevel\Contracts\ThemeContract;
 use Shipu\Themevel\Managers\Theme;
 
@@ -85,23 +86,35 @@ class ThemevelServiceProvider extends ServiceProvider
      */
     public function consoleCommand()
     {
-        $this->registerThemeGenerator();
+        $this->registerThemeGeneratorCommand();
+        $this->registerThemeListCommand();
         // Assign commands.
         $this->commands(
-            'theme.create'
+            'theme.create',
+            'theme.list'
         );
     }
 
     /**
-     * Register generator of theme.
+     * Register generator command.
      *
      * @return void
      */
-    public function registerThemeGenerator()
+    public function registerThemeGeneratorCommand()
     {
         $this->app->singleton('theme.create', function ($app) {
             return new \Shipu\Themevel\Console\ThemeGeneratorCommand($app['config'], $app['files']);
         });
+    }
+    
+    /**
+     * Register theme list command.
+     *
+     * @return void
+     */
+    public function registerThemeListCommand()
+    {
+        $this->app->singleton('theme.list', ThemeListCommand::class);
     }
 
     /**

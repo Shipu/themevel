@@ -5,12 +5,13 @@ Themevel is a Laravel 5 theme and asset management. You can easily integrate thi
 ### Features
 
 * Add multiple theme support
+* Custom theme location
 * Child theme support
 * Theme asset or parent asset finding support
 * Theme translator support
 * Multiple theme config extension
 * Multiple theme changelog extension
-* Simple command to create theme
+* Artisan console commands
 
 ### Installation
 
@@ -42,12 +43,90 @@ Now run this command in your terminal to publish this package resources
 php artisan vendor:publish --provider="Shipu\Themevel\Providers\ThemevelServiceProvider"
 ```
 
-### Create theme
+### Artisan Command
 Run this command in your terminal from your project directory.
 
+Create a theme directory
 ```ssh
 php artisan theme:create your_theme_name
+
+
+ What is theme title?:
+ > 
+
+ What is theme description? []:
+ > 
+
+ What is theme author name? []:
+ >  
+
+ What is theme version? []:
+ > 
+
+ Any parent theme? (yes/no) [no]:
+ > y
+
+ What is parent theme name?:
+ > 
+
 ```
+List of all themes
+```ssh
+php artisan theme:list
+
++----------+--------------+---------+----------+
+| Name     | Author       | Version | Parent   |
++----------+--------------+---------+----------+
+| themeone | Shipu Ahamed | 1.1.0   |          |
+| themetwo | Shipu Ahamed | 1.0.0   | themeone |
++----------+--------------+---------+----------+
+```
+
+### Example folder structure:
+```
+- app/
+- ..
+- ..
+- Themes/
+    - themeone/
+        - assets
+            - css
+                - app.css
+            - img
+            - js
+        - lang
+            - en
+                -content.php
+        - views/
+            - layouts
+                - master.blade.php
+            - welcome.blade.php
+        - changelog.yml        
+        - theme.json
+```
+you can change `theme.json` and `changelog.yml` name from `config/theme.php`
+
+```php
+// ..
+'config' => [
+    'name' => 'theme.json',
+    'changelog' => 'changelog.yml'
+],
+// ..
+```
+
+`json`, `yml`, `yaml`, `php`, `ini`, `xml` extension supported.  
+
+For example:
+```php
+// ..
+'config' => [
+    'name' => 'theme.json',
+    'changelog' => 'changelog.json'
+],
+// ..
+```
+Then run `theme:create` command which describe above.
 
 Now Please see the API List Doc.
 
@@ -127,9 +206,10 @@ $themeInfo = Theme::getThemeInfo('theme-name'); // return Collection
 $themeName = $themeInfo->get('changelog.versions');
 // or
 $themeName = $themeInfo['changelog.versions'];
-// or you can also call like as multi dimention
+// or you can also call like as multi dimension
 $themeName = $themeInfo['changelog']['versions'];
 ```
+
 ### assets
 
 For binding theme asset you can use `assets` method
@@ -227,6 +307,20 @@ protected $middlewareGroups = [
 ];
 ```
 Theme set from `config/theme.php` .
+
+### Dependency Injection
+You can also inject theme instance using ThemeContract.
+
+``` php
+use Shipu\Themevel\Contracts\ThemeContract;
+
+private $theme;
+
+public function __construct(ThemeContract $theme)
+{
+    $this->theme = $theme
+}
+```
 
 ## Support for this project
 Hey dude! Help me out for a couple of :beers:!
