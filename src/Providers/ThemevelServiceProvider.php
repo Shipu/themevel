@@ -106,7 +106,7 @@ class ThemevelServiceProvider extends ServiceProvider
             return new \Shipu\Themevel\Console\ThemeGeneratorCommand($app['config'], $app['files']);
         });
     }
-    
+
     /**
      * Register theme list command.
      *
