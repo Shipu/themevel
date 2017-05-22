@@ -192,8 +192,8 @@ class Theme implements ThemeContract
         $themePath = ltrim($themeInfo->get('path'), base_path()).'/';
         $assetPath = $this->config['theme.folders.assets'].'/';
         $fullPath = $themePath.$assetPath.$path;
-
-        if (!file_exists($fullPath) && $themeInfo->has('parent')) {
+    
+        if (!file_exists($fullPath) && $themeInfo->has('parent') && !empty($themeInfo->get('parent'))) {
             $themePath = ltrim($this->getThemeInfo($themeInfo->get('parent'))->get('path'), base_path()).'/';
             $fullPath = $themePath.$assetPath.$path;
 
@@ -283,7 +283,7 @@ class Theme implements ThemeContract
         $this->finder->prependLocation($themeInfo->get('path'));
         $this->finder->prependLocation($viewPath);
         $this->finder->prependNamespace($themeInfo->get('name'), $viewPath);
-        if($themeInfo->has('type')) {
+        if($themeInfo->has('type') && !empty($themeInfo->get('type'))) {
             $this->finder->prependNamespace($themeInfo->get('type'), $viewPath);
         }
         $this->lang->addNamespace($themeInfo->get('name'), $langPath);
