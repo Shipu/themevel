@@ -15,9 +15,9 @@ Themevel is a Laravel 5 theme and asset management package. You can easily integ
 
 ## Installation
 
-Themevel is a Laravel package so you can install it via composer. Run this command in your terminal from your project directory.
+Themevel is a Laravel package so you can install it via Composer. Run this command in your terminal from your project directory:
 
-```ssh
+```sh
 composer require shipu/themevel
 ```
 
@@ -25,19 +25,19 @@ Wait for a while, Composer will automatically install Themevel in your project.
 
 ## Configuration
 
-When the download is complete, you have to call this package service in `config/app.php` config file. To do that, add this line in `app.php` in `providers` section
+When the download is complete, you have to call this package service in `config/app.php` config file. To do that, add this line in `app.php` in `providers` array:
 
 ```php
 Shipu\Themevel\Providers\ThemevelServiceProvider::class,
 ```
 
-To use facade you have to add this line in `app.php` in `aliases` array
+To use facade you have to add this line in `app.php` in `aliases` array:
 
 ```php
 'Theme' => Shipu\Themevel\Facades\Theme::class,
 ```
 
-Now run this command in your terminal to publish this package resources
+Now run this command in your terminal to publish this package resources:
 
 ```
 php artisan vendor:publish --provider="Shipu\Themevel\Providers\ThemevelServiceProvider"
@@ -46,8 +46,8 @@ php artisan vendor:publish --provider="Shipu\Themevel\Providers\ThemevelServiceP
 ## Artisan Command
 Run this command in your terminal from your project directory.
 
-Create a theme directory
-```ssh
+Create a theme directory:
+```sh
 php artisan theme:create your_theme_name
 
 
@@ -70,8 +70,8 @@ php artisan theme:create your_theme_name
  > 
 
 ```
-List of all themes
-```ssh
+List of all themes:
+```sh
 php artisan theme:list
 
 +----------+--------------+---------+----------+
@@ -104,7 +104,7 @@ php artisan theme:list
         - changelog.yml        
         - theme.json
 ```
-you can change `theme.json` and `changelog.yml` name from `config/theme.php`
+You can change `theme.json` and `changelog.yml` name from `config/theme.php`
 
 ```php
 // ..
@@ -150,12 +150,12 @@ Theme::set('theme-name');
 
 ### get
 
-For getting current theme details you can use `get` method. 
+For getting current theme details you can use `get` method:
 
 ```php
 Theme::get(); // return Array
 ```
-you can also get particular theme details.
+You can also get particular theme details:
 ```php
 Theme::get('theme-name'); // return Array
 ```
@@ -166,7 +166,7 @@ Theme::get('theme-name', true); // return Collection
 
 ### current
 
-Retrieve current theme's name
+Retrieve current theme's name:
 
 ```php
 Theme::current(); // return string
@@ -174,7 +174,7 @@ Theme::current(); // return string
 
 ### all
 
-Retrieve All Theme Information
+Retrieve all theme information:
 
 ```php
 Theme::all(); // return Array
@@ -182,7 +182,7 @@ Theme::all(); // return Array
 
 ### has
 
-For getting theme exist or not
+For getting theme exist or not:
 
 ```php
 Theme::has(); // return bool
@@ -190,7 +190,7 @@ Theme::has(); // return bool
 
 ### getThemeInfo
 
-For getting theme exist or not
+For getting theme exist or not:
 
 ```php
 $themeInfo = Theme::getThemeInfo('theme-name'); // return Collection
@@ -199,7 +199,7 @@ $themeName = $themeInfo->get('name');
 // or
 $themeName = $themeInfo['name'];
 ```
-Also fallback support
+Also fallback support:
 ```php
 $themeInfo = Theme::getThemeInfo('theme-name'); // return Collection
 
@@ -212,26 +212,24 @@ $themeName = $themeInfo['changelog']['versions'];
 
 ### assets
 
-For binding theme asset you can use `assets` method
+For binding theme asset you can use `assets` method:
 
 ```php
 Theme::assets('your_asset_path'); // return string
 ```
-It's Generate `BASE_URL/theme_roots/your_active_theme_name/assets/your_asset_path`
+It's generate `BASE_URL/theme_roots/your_active_theme_name/assets/your_asset_path`
 
-If `your_asset_path` not exist then it's find to active theme immediate parent assets folder. 
-
-Look Like `BASE_URL/theme_roots/your_active_theme_parent_name/assets/your_asset_path`
+If `your_asset_path` not exist then it's find to active theme immediate parent assets folder. Look like `BASE_URL/theme_roots/your_active_theme_parent_name/assets/your_asset_path`
 
 For using helper you can also get assets path:
 ```php
 themes('your_asset_path'); // return string
 ```
 
-If You you want to bind specific theme assets:
+If you want to bind specific theme assets:
 ```php
 Theme::assets('your_theme_name:your_asset_path'); // return string
-//or 
+// or 
 themes('your_theme_name:your_asset_path'); // return string
 ```
 
@@ -251,24 +249,24 @@ echo Theme::lang('content.title'); // return string
 // or
 echo lang('content.title'); // return string
 ```
-If You you want to bind specific theme assets:
+If you want to bind specific theme assets:
 ```php
 echo Theme::lang('your_theme_name::your_asset_path'); // return string
-//or 
+// or 
 echo lang('your_theme_name::your_asset_path'); // return string
 ```
 
 ## How to use in Route
-```
+```php
 Route::get('/', function () {
     Theme::set('your_themen_name');
     return view('welcome');
 });
 ```
-_**This will firstly check if there is a welcome.blade.php in current theme directory. If none is found then it checks parent theme, and finally falls back to default laravel views location.**_
+_**This will firstly check if there is a welcome.blade.php in current theme directory. If none is found then it checks parent theme, and finally falls back to default Laravel views location.**_
 
-If You you want to specific theme view:
-```
+If you want to specific theme view:
+```php
 Route::get('/', function () {
     Theme::set('your_theme_name');
     return view('your_theme_name::welcome');
@@ -276,18 +274,18 @@ Route::get('/', function () {
 ```
 
 ## Set theme using route middleware
-A helper middleware is included out of the box if you want to define a Theme per route. To use it:
+A helper middleware is included out of the box if you want to define a theme per route. To use it:
 
 First register it in app\Http\Kernel.php:
 
-```
+```php
 protected $routeMiddleware = [
     // ...
     'theme' => \Shipu\Themevel\Middleware\RouteMiddleware::class,
 ];
 ```
 Now you can apply the middleware to a route or route-group. Eg:
-```
+```php
 Route::group(['prefix' => 'admin', 'middleware'=>'theme:Your_theme_name'], function() {
     // ... Add your routes here 
     // The Your_theme_name will be applied.
@@ -295,11 +293,11 @@ Route::group(['prefix' => 'admin', 'middleware'=>'theme:Your_theme_name'], funct
 ```
 
 ## Set theme using web middleware
-A helper middleware is included out of the box if you want to define a Theme per route. To use it:
+A helper middleware is included out of the box if you want to define a theme per route. To use it:
 
 First register it in app\Http\Kernel.php:
 
-```
+```php
 protected $middlewareGroups = [
     'web' => [
         // ...
@@ -311,7 +309,7 @@ protected $middlewareGroups = [
 Theme set from `config/theme.php` .
 
 ### Dependency Injection
-You can also inject theme instance using ThemeContract.
+You can also inject theme instance using ThemeContract, eg:
 
 ``` php
 use Shipu\Themevel\Contracts\ThemeContract;
