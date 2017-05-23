@@ -1,4 +1,7 @@
 # Laravel-Themevel
+[![Latest Stable Version](https://poser.pugx.org/shipu/themevel/v/stable)](https://packagist.org/packages/shipu/themevel)
+[![Latest Unstable Version](https://poser.pugx.org/shipu/themevel/v/unstable)](https://packagist.org/packages/shipu/themevel)
+[![License](https://poser.pugx.org/shipu/themevel/license)](https://packagist.org/packages/shipu/themevel)
 
 Themevel is a Laravel 5 theme and asset management package. You can easily integrate this package with any Laravel based project.
 
@@ -321,6 +324,11 @@ public function __construct(ThemeContract $theme)
     $this->theme = $theme
 }
 ```
+
+## Credits
+
+- [Shipu Ahamed](https://github.com/shipu)
+- [All Contributors](../../contributors)
 
 ## Support for this project
 Hey dude! Help me out for a couple of :beers:!
