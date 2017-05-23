@@ -1,6 +1,7 @@
 <?php
-
-class ThemeTest extends PHPUnit_Framework_TestCase
+namespace Shipu\Themevel\Tests;
+    
+class ThemeTest extends TestCase
 {
     public function testTheme()
     {

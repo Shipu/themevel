@@ -37,7 +37,7 @@ class ThemevelServiceProvider extends ServiceProvider
         $this->registerMiddleware();
         $this->loadViewsFrom(__DIR__.'/../Views', 'themevel');
     }
-    
+
     /**
      * Add Theme Types Middleware.
      *

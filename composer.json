@@ -10,9 +10,12 @@
             "email": "shipuahamed01@gmail.com"
         }
     ],
-    "minimum-stability": "dev",
     "require": {
         "hassankhan/config": "^0.10.0"
+    },
+    "require-dev": {
+        "graham-campbell/testbench": "^3.3",
+        "phpunit/phpunit": "^5.0"
     },
     "autoload": {
         "psr-4": {
