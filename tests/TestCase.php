@@ -1,5 +1,5 @@
 <?php
-    
+
 namespace Shipu\Themevel\Tests;
 
 use GrahamCampbell\TestBench\AbstractPackageTestCase;
@@ -17,7 +17,7 @@ abstract class TestCase extends AbstractPackageTestCase
      *
      * @return string
      */
-    protected function getServiceProviderClass( $app )
+    protected function getServiceProviderClass($app)
     {
         return ThemevelServiceProvider::class;
     }
