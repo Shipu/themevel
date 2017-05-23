@@ -31,7 +31,7 @@ When the download is complete, you have to call this package service in `config/
 Shipu\Themevel\Providers\ThemevelServiceProvider::class,
 ```
 
-To use facade you have to add this line in `app.php` in `aliases` array:
+To use facade you have to add this line in `app.php` to the `aliases` array:
 
 ```php
 'Theme' => Shipu\Themevel\Facades\Theme::class,
@@ -182,7 +182,7 @@ Theme::all(); // return Array
 
 ### has
 
-For getting theme exist or not:
+For getting whether the theme exists or not:
 
 ```php
 Theme::has(); // return bool
@@ -190,7 +190,7 @@ Theme::has(); // return bool
 
 ### getThemeInfo
 
-For getting theme exist or not:
+For info about the specified theme:
 
 ```php
 $themeInfo = Theme::getThemeInfo('theme-name'); // return Collection
@@ -212,16 +212,16 @@ $themeName = $themeInfo['changelog']['versions'];
 
 ### assets
 
-For binding theme asset you can use `assets` method:
+For binding theme assets you can use the `assets` method:
 
 ```php
 Theme::assets('your_asset_path'); // return string
 ```
-It's generate `BASE_URL/theme_roots/your_active_theme_name/assets/your_asset_path`
+It's generated at `BASE_URL/theme_roots/your_active_theme_name/assets/your_asset_path`
 
-If `your_asset_path` not exist then it's find to active theme immediate parent assets folder. Look like `BASE_URL/theme_roots/your_active_theme_parent_name/assets/your_asset_path`
+If `your_asset_path` does not exist then it's find to active theme immediate parent assets folder. Look like `BASE_URL/theme_roots/your_active_theme_parent_name/assets/your_asset_path`
 
-For using helper you can also get assets path:
+When using helper you can also get assets path:
 ```php
 themes('your_asset_path'); // return string
 ```
@@ -259,7 +259,7 @@ echo lang('your_theme_name::your_asset_path'); // return string
 ## How to use in Route
 ```php
 Route::get('/', function () {
-    Theme::set('your_themen_name');
+    Theme::set('your_theme_name');
     return view('welcome');
 });
 ```
