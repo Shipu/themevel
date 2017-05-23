@@ -1,8 +1,6 @@
 <?php
 
-use PHPUnit\Framework\TestCase;
-
-class ThemeTest extends TestCase
+class ThemeTest extends PHPUnit_Framework_TestCase
 {
     public function testTheme()
     {
