@@ -35,7 +35,7 @@ return [
     |
     */
     'symlink'    => true,
-    
+
     /*
     |--------------------------------------------------------------------------
     | Theme types where you can set default theme for particular middleware.
@@ -46,7 +46,7 @@ return [
     |           'middlewareName'      => 'themeName',
     |       ]
     |   ],
-    
+
     | For Example route
     | Route::get('/', function () {
     |       return view('welcome');
@@ -55,10 +55,10 @@ return [
     |
     */
     'types'     => [
-        'enable' => false,
+        'enable'     => false,
         'middleware' => [
             'example'      => 'admin',
-        ]
+        ],
     ],
 
     /*
