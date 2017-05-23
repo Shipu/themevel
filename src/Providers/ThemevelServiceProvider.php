@@ -37,15 +37,15 @@ class ThemevelServiceProvider extends ServiceProvider
         $this->registerMiddleware();
         $this->loadViewsFrom(__DIR__.'/../Views', 'themevel');
     }
-    
+
     /**
-     * Add Theme Types Middleware
+     * Add Theme Types Middleware.
      *
      * @return void
      */
     public function registerMiddleware()
     {
-        if(config('theme.types.enable')) {
+        if (config('theme.types.enable')) {
             $themeTypes = config('theme.types.middleware');
             foreach ($themeTypes as $middleware => $themeName) {
                 $this->app['router']->aliasMiddleware($middleware, '\Shipu\Themevel\Middleware\RouteMiddleware:'.$themeName);
