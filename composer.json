@@ -33,7 +33,7 @@
                 "Shipu\\Themevel\\Providers\\ThemevelServiceProvider"
             ],
             "aliases": {
-                "Theme": "Shipu\\Themevel\\Facades\\Theme",
+                "Theme": "Shipu\\Themevel\\Facades\\Theme"
             }
         }
     },
