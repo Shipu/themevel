@@ -28,13 +28,13 @@ Wait for a while, Composer will automatically install Themevel in your project.
 
 ## Configuration
 
-When the download is complete, you have to call this package service in `config/app.php` config file. To do that, add this line in `app.php` in `providers` array:
+Below **Laravel 5.5** you have to call this package service in `config/app.php` config file. To do that, add this line in `app.php` in `providers` array:
 
 ```php
 Shipu\Themevel\Providers\ThemevelServiceProvider::class,
 ```
 
-To use facade you have to add this line in `app.php` to the `aliases` array:
+Below **Laravel 5.5** version to use facade you have to add this line in `app.php` to the `aliases` array:
 
 ```php
 'Theme' => Shipu\Themevel\Facades\Theme::class,
