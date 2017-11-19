@@ -27,6 +27,16 @@
             "Shipu\\Themevel\\Tests\\": "tests/"
         }
     },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Shipu\\Themevel\\Providers\\ThemevelServiceProvider"
+            ],
+            "aliases": {
+                "Theme": "Shipu\\Themevel\\Facades\\Theme",
+            }
+        }
+    },
     "minimum-stability": "dev",
     "prefer-stable": true
 }
