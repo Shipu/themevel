@@ -1,7 +1,9 @@
 {
-  "versions": [
-     "[VERSION]": [
-        "changed": Initial release
-     ]
-  ]
+    "versions": {
+        "[VERSION]": {
+            "changed": [
+                Initial release
+            ]
+        }
+    }
 }
