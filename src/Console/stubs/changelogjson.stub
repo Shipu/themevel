@@ -2,7 +2,7 @@
     "versions": {
         "[VERSION]": {
             "changed": [
-                Initial release
+                "Initial release"
             ]
         }
     }
