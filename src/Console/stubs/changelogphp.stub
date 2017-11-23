@@ -1,0 +1,11 @@
+<?php
+
+return [
+    'versions' => [
+        '[VERSION]' => [
+            'changed' => [
+                'Initial release'
+            ]
+        ]
+    ]
+];
