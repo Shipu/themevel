@@ -189,7 +189,12 @@ class Theme implements ThemeContract
 
         $themeInfo = $this->getThemeInfo($themeName);
 
-        $themePath = str_replace(base_path().'/', '', $themeInfo->get('path')).'/';
+        if ( $this->config[ 'theme.symlink' ] ) {
+            $themePath = 'Themes/' . $themeName . '/';
+        } else {
+            $themePath = str_replace(base_path('public') . '/', '', $themeInfo->get('path')) . '/';
+        }
+        
         $assetPath = $this->config['theme.folders.assets'].'/';
         $fullPath = $themePath.$assetPath.$path;
 
