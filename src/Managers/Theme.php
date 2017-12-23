@@ -172,36 +172,44 @@ class Theme implements ThemeContract
      *
      * @return string
      */
-    public function assets($path, $secure = null)
-    {
-        $splitThemeAndPath = explode(':', $path);
+     public function assets($path, $secure = null, $prefix = null)
+     {
+         $splitThemeAndPath = explode(':', $path);
 
-        if (count($splitThemeAndPath) > 1) {
-            if (is_null($splitThemeAndPath[0])) {
-                return;
-            }
-            $themeName = $splitThemeAndPath[0];
-            $path = $splitThemeAndPath[1];
-        } else {
-            $themeName = $this->activeTheme;
-            $path = $splitThemeAndPath[0];
-        }
+         if (count($splitThemeAndPath) > 1) {
+             if (is_null($splitThemeAndPath[0])) {
+                 return;
+             }
+             $themeName = $splitThemeAndPath[0];
+             $path = $splitThemeAndPath[1];
+         } else {
+             $themeName = $this->activeTheme;
+             $path = $splitThemeAndPath[0];
+         }
 
-        $themeInfo = $this->getThemeInfo($themeName);
+         $themeInfo = $this->getThemeInfo($themeName);
 
-        $themePath = str_replace(base_path().'/', '', $themeInfo->get('path')).'/';
-        $assetPath = $this->config['theme.folders.assets'].'/';
-        $fullPath = $themePath.$assetPath.$path;
+         if ( $this->config[ 'theme.symlink' ] ) {
+             if ($prefix!=null) {
+                 $themePath = $prefix.'/Themes/' . $themeName . '/';
+             } else {
+                 $themePath = 'Themes/' . $themeName . '/';
+             }
+         } else {
+             $themePath = str_replace(base_path('public') . '/', '', $themeInfo->get('path')) . '/';
+         }
 
-        if (!file_exists($fullPath) && $themeInfo->has('parent') && !empty($themeInfo->get('parent'))) {
-            $themePath = str_replace(base_path().'/', '', $this->getThemeInfo($themeInfo->get('parent'))->get('path') ).'/';
-            $fullPath = $themePath.$assetPath.$path;
+         $assetPath = $this->config['theme.folders.assets'].'/';
+         $fullPath = $themePath.$assetPath.$path;
 
-            return $this->app['url']->asset($fullPath, $secure);
-        }
+         if (!file_exists($fullPath) && $themeInfo->has('parent') && !empty($themeInfo->get('parent'))) {
+             $themePath = str_replace(base_path().'/', '', $this->getThemeInfo($themeInfo->get('parent'))->get('path') ).'/';
+             $fullPath = $themePath.$assetPath.$path;
+             return $this->app['url']->asset($fullPath, $secure);
+         }
 
-        return $this->app['url']->asset($fullPath, $secure);
-    }
+         return $this->app['url']->asset($fullPath, $secure);
+     }
 
     /**
      * Get lang content from current theme.
