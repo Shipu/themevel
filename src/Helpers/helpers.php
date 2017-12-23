@@ -9,10 +9,10 @@ if (!function_exists('themes')) {
      *
      * @return string
      */
-    function themes($path, $secure = null)
-    {
-        return Theme::assets($path, $secure);
-    }
+    function themes($path, $secure = null, $prefix = null)
+     {
+         return Theme::assets($path, $secure, $prefix);
+     }
 }
 
 if (!function_exists('lang')) {
