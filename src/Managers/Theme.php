@@ -9,6 +9,7 @@ use Illuminate\View\ViewFinderInterface;
 use Noodlehaus\Config;
 use Shipu\Themevel\Contracts\ThemeContract;
 use Shipu\Themevel\Exceptions\ThemeNotFoundException;
+use Shipu\Themevel\Events\ThemeLoadedEvent;
 
 class Theme implements ThemeContract
 {
@@ -292,5 +293,7 @@ class Theme implements ThemeContract
             $this->finder->prependNamespace($themeInfo->get('type'), $viewPath);
         }
         $this->lang->addNamespace($themeInfo->get('name'), $langPath);
+
+        event(new ThemeLoadedEvent($this, $themeInfo));
     }
 }
