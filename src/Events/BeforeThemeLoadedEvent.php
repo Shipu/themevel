@@ -12,7 +12,7 @@ use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 
 use Shipu\Themevel\Managers\Theme;
 
-class ThemeLoadedEvent
+class BeforeThemeLoadedEvent
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
@@ -24,7 +24,7 @@ class ThemeLoadedEvent
      *
      * @return void
      */
-    public function __construct(Theme $manager, $theme)
+    public function __construct(Theme $manager, $theme, $level)
     {
         $this->manager = $manager;
         $this->theme = $theme;
