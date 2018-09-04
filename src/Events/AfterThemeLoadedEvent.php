@@ -28,6 +28,7 @@ class AfterThemeLoadedEvent
     {
         $this->manager = $manager;
         $this->theme = $theme;
+        $this->level = $level;
     }
 
     /**
