@@ -9,6 +9,8 @@ use Illuminate\View\ViewFinderInterface;
 use Noodlehaus\Config;
 use Shipu\Themevel\Contracts\ThemeContract;
 use Shipu\Themevel\Exceptions\ThemeNotFoundException;
+use Shipu\Themevel\Events\BeforeThemeLoadedEvent;
+use Shipu\Themevel\Events\AfterThemeLoadedEvent;
 
 class Theme implements ThemeContract
 {
@@ -265,10 +267,11 @@ class Theme implements ThemeContract
      * Map view map for particular theme.
      *
      * @param string $theme
+     * @param int $level
      *
-     * @return void
+     * @return null|bool
      */
-    private function loadTheme($theme)
+    private function loadTheme($theme, $level = 0)
     {
         if (is_null($theme)) {
             return;
@@ -280,7 +283,12 @@ class Theme implements ThemeContract
             return;
         }
 
-        $this->loadTheme($themeInfo->get('parent'));
+        $beforeResponse = event(new BeforeThemeLoadedEvent($this, $themeInfo, $level));
+        if ($beforeResponse === false) {
+            return false;
+        }
+
+        $this->loadTheme($themeInfo->get('parent'), $level + 1);
 
         $viewPath = $themeInfo->get('path').'/'.$this->config['theme.folders.views'];
         $langPath = $themeInfo->get('path').'/'.$this->config['theme.folders.lang'];
@@ -292,5 +300,9 @@ class Theme implements ThemeContract
             $this->finder->prependNamespace($themeInfo->get('type'), $viewPath);
         }
         $this->lang->addNamespace($themeInfo->get('name'), $langPath);
+
+        event(new AfterThemeLoadedEvent($this, $themeInfo, $level));
+
+        return true;
     }
 }
