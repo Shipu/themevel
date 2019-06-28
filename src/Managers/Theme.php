@@ -174,6 +174,20 @@ class Theme implements ThemeContract
      */
     public function assets($path, $secure = null)
     {
+        $fullPath = $this->getFullPath($path);
+
+        return $this->app['url']->asset($fullPath, $secure);
+    }
+
+    /**
+     * Find theme asset from theme directory.
+     *
+     * @param string $path
+     *
+     * @return string
+     */
+    public function getFullPath($path)
+    {
         $splitThemeAndPath = explode(':', $path);
 
         if (count($splitThemeAndPath) > 1) {
@@ -194,7 +208,7 @@ class Theme implements ThemeContract
         } else {
             $themePath = str_replace(base_path('public') . '/', '', $themeInfo->get('path')) . '/';
         }
-        
+
         $assetPath = $this->config['theme.folders.assets'].'/';
         $fullPath = $themePath.$assetPath.$path;
 
@@ -202,10 +216,23 @@ class Theme implements ThemeContract
             $themePath = str_replace(base_path().'/', '', $this->getThemeInfo($themeInfo->get('parent'))->get('path') ).'/';
             $fullPath = $themePath.$assetPath.$path;
 
-            return $this->app['url']->asset($fullPath, $secure);
+            return $fullPath;
         }
 
-        return $this->app['url']->asset($fullPath, $secure);
+        return $fullPath;
+    }
+
+    /**
+     * Get the current theme path to a versioned Mix file.
+     *
+     * @param string $path
+     * @param  string  $manifestDirectory
+     *
+     * @return \Illuminate\Support\HtmlString|string
+     */
+    public function themeMix($path, $manifestDirectory = '')
+    {
+        return mix($this->getFullPath($path), $manifestDirectory);
     }
 
     /**
