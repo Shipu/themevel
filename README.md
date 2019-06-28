@@ -1,4 +1,5 @@
 # Laravel-Themevel
+[![Latest Stable Version](https://api.travis-ci.org/shipu/themevel.svg?branch=master)](https://travis-ci.org/shipu/themevel)
 [![Latest Stable Version](https://poser.pugx.org/shipu/themevel/v/stable)](https://packagist.org/packages/shipu/themevel)
 [![Latest Unstable Version](https://poser.pugx.org/shipu/themevel/v/unstable)](https://packagist.org/packages/shipu/themevel)
 [![License](https://poser.pugx.org/shipu/themevel/license)](https://packagist.org/packages/shipu/themevel)
