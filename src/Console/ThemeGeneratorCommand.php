@@ -13,7 +13,7 @@ class ThemeGeneratorCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'theme:create {name}';
+    protected $signature = 'theme:create {name?}';
 
     /**
      * The console command description.
@@ -89,10 +89,28 @@ class ThemeGeneratorCommand extends Command
         $this->themePath = $this->config->get('theme.theme_path');
         $this->theme['name'] = strtolower($this->argument('name'));
 
+        if(empty($this->theme['name'])) {
+            $this->theme['name'] = $this->ask('What is your theme name?');
+            if(empty($this->theme['name'])) {
+                $this->error("Theme is not Generated, Theme name required !!!");
+                return;
+            }
+        }
+
+        $this->init();
+    }
+
+    /**
+     * Theme Initialize
+     *
+     * @return void
+     */
+    protected function init()
+    {
         $createdThemePath = $this->themePath.'/'.$this->theme['name'];
 
         if ($this->files->isDirectory($createdThemePath)) {
-            return $this->error('Sorry Boss '.ucfirst($this->theme['name']).' Theme Folder Already Exist !!!');
+            return $this->error('Sorry Boss'.ucfirst($this->theme['name']).' Theme Folder Already Exist !!!');
         }
 
         $this->consoleAsk();
