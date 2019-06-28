@@ -3,7 +3,7 @@
     "description": "Theme and asset management for laravel 5",
     "keywords": ["theme", "child-theme", "multi", "themevel", "asset", "management", "laravel", "lumen"],
     "homepage": "https://github.com/shipu/themevel",
-    "license": "CC(3.0)",
+    "license": "CC-BY-3.0",
     "authors": [
         {
             "name": "Shipu Ahamed",
