@@ -192,7 +192,7 @@ class ThemeGeneratorCommand extends Command
     protected function makeDir($directory)
     {
         if (!$this->files->isDirectory($directory)) {
-            $this->files->makeDirectory($directory, 0777, true);
+            $this->files->makeDirectory($directory, 0775, true);
         }
     }
 
