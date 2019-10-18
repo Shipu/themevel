@@ -325,6 +325,14 @@ public function __construct(ThemeContract $theme)
     $this->theme = $theme
 }
 ```
+## Troubleshooting
+
+Clear config after runing `vendor publish` (see [Config section](#configuration)) to save issues related to config caching by running:
+
+`php artisan config:cache`
+
+`php artisan config:clear`
+
 
 ## Credits
 
