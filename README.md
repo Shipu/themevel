@@ -312,6 +312,17 @@ protected $middlewareGroups = [
 ```
 Theme set from `config/theme.php` .
 
+Then in your controller you can call your view as you would normally do:
+
+```php
+
+return view('home');  // This will load the home.blade.php from the the folder you set in your `config/theme.php`
+
+```
+
+
+
+
 ### Dependency Injection
 You can also inject theme instance using ThemeContract, eg:
 
