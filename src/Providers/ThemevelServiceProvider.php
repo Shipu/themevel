@@ -92,7 +92,7 @@ class ThemevelServiceProvider extends ServiceProvider
             $configPath => config_path('theme.php'),
         ]);
 
-        $this->mergeConfigFrom($configPath, 'themevel');
+        $this->mergeConfigFrom($configPath, 'theme');
     }
 
     /**
