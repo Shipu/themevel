@@ -12,7 +12,7 @@
     ],
     "require": {
         "hassankhan/config": "^0.10.0",
-        "symfony/yaml": "5.1.x-dev"
+        "symfony/yaml": "^3.3"
     },
     "require-dev": {
         "graham-campbell/testbench": "^3.3",
