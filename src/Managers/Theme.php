@@ -204,16 +204,16 @@ class Theme implements ThemeContract
         $themeInfo = $this->getThemeInfo($themeName);
 
         if ( $this->config[ 'theme.symlink' ] ) {
-            $themePath = 'Themes/' . $themeName . '/';
+            $themePath = 'Themes'. DIRECTORY_SEPARATOR . $themeName . DIRECTORY_SEPARATOR;
         } else {
-            $themePath = str_replace(base_path('public') . '/', '', $themeInfo->get('path')) . '/';
+            $themePath = str_replace(base_path('public') . DIRECTORY_SEPARATOR, '', $themeInfo->get('path')) . DIRECTORY_SEPARATOR;
         }
 
-        $assetPath = $this->config['theme.folders.assets'].'/';
+        $assetPath = $this->config['theme.folders.assets'].DIRECTORY_SEPARATOR;
         $fullPath = $themePath.$assetPath.$path;
 
         if (!file_exists($fullPath) && $themeInfo->has('parent') && !empty($themeInfo->get('parent'))) {
-            $themePath = str_replace(base_path().'/', '', $this->getThemeInfo($themeInfo->get('parent'))->get('path') ).'/';
+            $themePath = str_replace(base_path().DIRECTORY_SEPARATOR, '', $this->getThemeInfo($themeInfo->get('parent'))->get('path') ).DIRECTORY_SEPARATOR;
             $fullPath = $themePath.$assetPath.$path;
 
             return $fullPath;
@@ -272,8 +272,8 @@ class Theme implements ThemeContract
         $themeDirectories = glob($this->basePath.'/*', GLOB_ONLYDIR);
         $themes = [];
         foreach ($themeDirectories as $themePath) {
-            $themeConfigPath = $themePath.'/'.$this->config['theme.config.name'];
-            $themeChangelogPath = $themePath.'/'.$this->config['theme.config.changelog'];
+            $themeConfigPath = $themePath.DIRECTORY_SEPARATOR.$this->config['theme.config.name'];
+            $themeChangelogPath = $themePath.DIRECTORY_SEPARATOR.$this->config['theme.config.changelog'];
 
             if (file_exists($themeConfigPath)) {
                 $themeConfig = Config::load($themeConfigPath);
@@ -309,8 +309,8 @@ class Theme implements ThemeContract
 
         $this->loadTheme($themeInfo->get('parent'));
 
-        $viewPath = $themeInfo->get('path').'/'.$this->config['theme.folders.views'];
-        $langPath = $themeInfo->get('path').'/'.$this->config['theme.folders.lang'];
+        $viewPath = $themeInfo->get('path').DIRECTORY_SEPARATOR.$this->config['theme.folders.views'];
+        $langPath = $themeInfo->get('path').DIRECTORY_SEPARATOR.$this->config['theme.folders.lang'];
 
         $this->finder->prependLocation($themeInfo->get('path'));
         $this->finder->prependLocation($viewPath);
