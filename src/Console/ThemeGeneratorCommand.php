@@ -146,7 +146,7 @@ class ThemeGeneratorCommand extends Command
         $this->theme['description'] = !$this->theme['description'] ? '' : title_case($this->theme['description']);
 
         $this->theme['author'] = $this->ask('What is theme author name?', false);
-        $this->theme['author'] = !$this->theme['author'] ? 'Shipu Ahamed' : title_case($this->theme['author']);
+        $this->theme['author'] = !$this->theme['author'] ? '' : title_case($this->theme['author']);
 
         $this->theme['version'] = $this->ask('What is theme version?', false);
         $this->theme['version'] = !$this->theme['version'] ? '1.0.0' : $this->theme['version'];
