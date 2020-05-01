@@ -204,7 +204,7 @@ class Theme implements ThemeContract
         $themeInfo = $this->getThemeInfo($themeName);
 
         if ( $this->config[ 'theme.symlink' ] ) {
-            $themePath = 'Themes'. DIRECTORY_SEPARATOR . $themeName . DIRECTORY_SEPARATOR;
+            $themePath = str_replace(base_path('public') . DIRECTORY_SEPARATOR, '',  $this->config[ 'theme.symlink_path' ]) . DIRECTORY_SEPARATOR;
         } else {
             $themePath = str_replace(base_path('public') . DIRECTORY_SEPARATOR, '', $themeInfo->get('path')) . DIRECTORY_SEPARATOR;
         }
