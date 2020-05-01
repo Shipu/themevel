@@ -205,7 +205,7 @@ class Theme implements ThemeContract
 
         if ( $this->config[ 'theme.symlink' ] ) {
             if ($this->config['theme.symlink']) {
-+            $themePath = str_replace(base_path('public').DIRECTORY_SEPARATOR, '', $this->config['theme.symlink_path']).DIRECTORY_SEPARATO;
++            $themePath = str_replace(base_path('public').DIRECTORY_SEPARATOR, '', $this->config['theme.symlink_path']).DIRECTORY_SEPARATOR;
         } else {
             $themePath = str_replace(base_path('public').DIRECTORY_SEPARATOR, '', $themeInfo->get('path')).DIRECTORY_SEPARATOR;
         }
