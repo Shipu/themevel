@@ -93,7 +93,7 @@ class ThemeGeneratorCommand extends Command
         if (empty($this->theme['name'])) {
             $this->theme['name'] = $this->ask('What is your theme name?');
             if (empty($this->theme['name'])) {
-                $this->error("Theme is not Generated, Theme name required !!!");
+                $this->error('Theme is not Generated, Theme name required !!!');
                 return;
             }
         }
