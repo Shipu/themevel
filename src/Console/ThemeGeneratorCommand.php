@@ -94,6 +94,7 @@ class ThemeGeneratorCommand extends Command
             $this->theme['name'] = $this->ask('What is your theme name?');
             if (empty($this->theme['name'])) {
                 $this->error('Theme is not Generated, Theme name required !!!');
+                
                 return;
             }
         }
