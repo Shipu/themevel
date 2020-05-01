@@ -90,9 +90,9 @@ class ThemeGeneratorCommand extends Command
         $this->themePath = $this->config->get('theme.theme_path');
         $this->theme['name'] = strtolower($this->argument('name'));
 
-        if(empty($this->theme['name'])) {
+        if (empty($this->theme['name'])) {
             $this->theme['name'] = $this->ask('What is your theme name?');
-            if(empty($this->theme['name'])) {
+            if (empty($this->theme['name'])) {
                 $this->error("Theme is not Generated, Theme name required !!!");
                 return;
             }
@@ -102,7 +102,7 @@ class ThemeGeneratorCommand extends Command
     }
 
     /**
-     * Theme Initialize
+     * Theme Initialize.
      *
      * @return void
      */
@@ -175,8 +175,10 @@ class ThemeGeneratorCommand extends Command
             } elseif ($filename == 'theme') {
                 $filename = pathinfo($storePath, PATHINFO_EXTENSION);
             } elseif ($filename == 'css' || $filename == 'js') {
-                $this->theme[$filename] = ltrim($storePath,
-                    rtrim($this->config->get('theme.folders.assets'), '/').'/');
+                $this->theme[$filename] = ltrim(
+                    $storePath,
+                    rtrim($this->config->get('theme.folders.assets'), '/').'/'
+                );
             }
             $themeStubFile = $this->themeStubPath.'/'.$filename.'.stub';
             $this->makeFile($themeStubFile, $createdThemePath.'/'.$storePath);
