@@ -204,16 +204,17 @@ class Theme implements ThemeContract
         $themeInfo = $this->getThemeInfo($themeName);
 
         if ( $this->config[ 'theme.symlink' ] ) {
-            $themePath = str_replace(base_path('public') . DIRECTORY_SEPARATOR, '',  $this->config[ 'theme.symlink_path' ]) . DIRECTORY_SEPARATOR;
+            if ($this->config['theme.symlink']) {
++            $themePath = str_replace(base_path('public').DIRECTORY_SEPARATOR, '', $this->config['theme.symlink_path']).DIRECTORY_SEPARATO;
         } else {
-            $themePath = str_replace(base_path('public') . DIRECTORY_SEPARATOR, '', $themeInfo->get('path')) . DIRECTORY_SEPARATOR;
+            $themePath = str_replace(base_path('public').DIRECTORY_SEPARATOR, '', $themeInfo->get('path')).DIRECTORY_SEPARATOR;
         }
 
         $assetPath = $this->config['theme.folders.assets'].DIRECTORY_SEPARATOR;
         $fullPath = $themePath.$assetPath.$path;
 
         if (!file_exists($fullPath) && $themeInfo->has('parent') && !empty($themeInfo->get('parent'))) {
-            $themePath = str_replace(base_path().DIRECTORY_SEPARATOR, '', $this->getThemeInfo($themeInfo->get('parent'))->get('path') ).DIRECTORY_SEPARATOR;
+            $themePath = str_replace(base_path().DIRECTORY_SEPARATOR, '', $this->getThemeInfo($themeInfo->get('parent'))->get('path')).DIRECTORY_SEPARA
             $fullPath = $themePath.$assetPath.$path;
 
             return $fullPath;
@@ -226,7 +227,7 @@ class Theme implements ThemeContract
      * Get the current theme path to a versioned Mix file.
      *
      * @param string $path
-     * @param  string  $manifestDirectory
+     * @param string $manifestDirectory
      *
      * @return \Illuminate\Support\HtmlString|string
      */
