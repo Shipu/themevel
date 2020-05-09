@@ -5,6 +5,7 @@ namespace Shipu\Themevel\Console;
 use Illuminate\Config\Repository;
 use Illuminate\Console\Command;
 use Illuminate\Filesystem\Filesystem as File;
+use Illuminate\Support\Str;
 
 class ThemeGeneratorCommand extends Command
 {
@@ -89,10 +90,11 @@ class ThemeGeneratorCommand extends Command
         $this->themePath = $this->config->get('theme.theme_path');
         $this->theme['name'] = strtolower($this->argument('name'));
 
-        if(empty($this->theme['name'])) {
+        if (empty($this->theme['name'])) {
             $this->theme['name'] = $this->ask('What is your theme name?');
-            if(empty($this->theme['name'])) {
-                $this->error("Theme is not Generated, Theme name required !!!");
+            if (empty($this->theme['name'])) {
+                $this->error('Theme is not Generated, Theme name required !!!');
+
                 return;
             }
         }
@@ -101,7 +103,7 @@ class ThemeGeneratorCommand extends Command
     }
 
     /**
-     * Theme Initialize
+     * Theme Initialize.
      *
      * @return void
      */
@@ -143,10 +145,10 @@ class ThemeGeneratorCommand extends Command
         $this->theme['title'] = $this->ask('What is theme title?');
 
         $this->theme['description'] = $this->ask('What is theme description?', false);
-        $this->theme['description'] = !$this->theme['description'] ? '' : title_case($this->theme['description']);
+        $this->theme['description'] = !$this->theme['description'] ? '' : Str::title($this->theme['description']);
 
         $this->theme['author'] = $this->ask('What is theme author name?', false);
-        $this->theme['author'] = !$this->theme['author'] ? '' : title_case($this->theme['author']);
+        $this->theme['author'] = !$this->theme['author'] ? '' : Str::title($this->theme['author']);
 
         $this->theme['version'] = $this->ask('What is theme version?', false);
         $this->theme['version'] = !$this->theme['version'] ? '1.0.0' : $this->theme['version'];
@@ -174,8 +176,10 @@ class ThemeGeneratorCommand extends Command
             } elseif ($filename == 'theme') {
                 $filename = pathinfo($storePath, PATHINFO_EXTENSION);
             } elseif ($filename == 'css' || $filename == 'js') {
-                $this->theme[$filename] = ltrim($storePath,
-                    rtrim($this->config->get('theme.folders.assets'), '/').'/');
+                $this->theme[$filename] = ltrim(
+                    $storePath,
+                    rtrim($this->config->get('theme.folders.assets'), '/').'/'
+                );
             }
             $themeStubFile = $this->themeStubPath.'/'.$filename.'.stub';
             $this->makeFile($themeStubFile, $createdThemePath.'/'.$storePath);

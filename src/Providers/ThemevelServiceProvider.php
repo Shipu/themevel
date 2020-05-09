@@ -18,7 +18,7 @@ class ThemevelServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        if (!File::exists(public_path('Themes')) && config('theme.symlink') && File::exists(config('theme.theme_path'))) {
+        if (!File::exists(public_path('Themes')) && !File::exists(config('theme.symlink_path')) && config('theme.symlink') && File::exists(config('theme.theme_path'))) {
             App::make('files')->link(config('theme.theme_path'), config('theme.symlink_path', public_path('Themes')));
         }
     }
