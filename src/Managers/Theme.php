@@ -242,7 +242,7 @@ class Theme implements ThemeContract
      *
      * @return \Illuminate\Contracts\Translation\Translator|string
      */
-    public function lang($fallback)
+    public function lang($fallback, $replace = [], $locale = null)
     {
         $splitLang = explode('::', $fallback);
 
@@ -259,7 +259,7 @@ class Theme implements ThemeContract
             }
         }
 
-        return trans($fallback);
+        return trans($fallback, $replace, $locale);
     }
 
     /**
