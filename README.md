@@ -261,12 +261,19 @@ Specific theme assets:
 ```
 ### lang
 
-The `lang` method translates the given language line using your current **theme** [localization files](https://laravel.com/docs/5.4/localization):
+The `lang` method translates the given language line using your current **theme** [localization files](https://laravel.com/docs/master/localization):
 ```php
 echo Theme::lang('content.title'); // return string
 // or
 echo lang('content.title'); // return string
 ```
+also support
+```php
+echo Theme::lang('content.title', [your replace array], 'your desire locale'); // return string
+// or
+echo lang('content.title', [your replace array], 'your desire locale'); // return string
+```
+
 If you want to bind specific theme assets:
 ```php
 echo Theme::lang('your_theme_name::your_asset_path'); // return string
