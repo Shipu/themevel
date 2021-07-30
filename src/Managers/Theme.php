@@ -212,7 +212,7 @@ class Theme implements ThemeContract
         $assetPath = $this->config['theme.folders.assets'].DIRECTORY_SEPARATOR;
         $fullPath = $themePath.$assetPath.$path;
 
-        if (!file_exists($fullPath) && $themeInfo->has('parent') && !empty($themeInfo->get('parent'))) {
+        if (isset($themeInfo) && !file_exists($fullPath) && $themeInfo->has('parent') && !empty($themeInfo->get('parent'))) {
             $themePath = str_replace(base_path().DIRECTORY_SEPARATOR, '', $this->getThemeInfo($themeInfo->get('parent'))->get('path')).DIRECTORY_SEPARATOR;
             $fullPath = $themePath.$assetPath.$path;
 
