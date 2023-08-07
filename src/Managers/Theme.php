@@ -81,6 +81,8 @@ class Theme implements ThemeContract
 
         $this->basePath = $this->config['theme.theme_path'];
 
+        $this->activeTheme = $this->config['theme.active'];
+
         $this->scanThemes();
     }
 
