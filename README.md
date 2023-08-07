@@ -19,7 +19,7 @@ Themevel is a Laravel theme and asset management package. You can easily integra
 * Artisan console commands
 * Theme enable only Specific route via middleware
 * Almost everything customizable 
-* Also Laravel 5.5 <= Supported
+* Also Laravel 5.5 to Laravel 10 Supported
 
 ## Installation
 
